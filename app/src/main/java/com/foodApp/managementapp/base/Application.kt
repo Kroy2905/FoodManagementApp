@@ -3,16 +3,12 @@ package com.myelin.ics.base
 import android.app.Application
 import android.content.Intent
 import android.util.Log
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
+
 import com.foodApp.managementapp.APIservice
 import com.foodApp.managementapp.BuildConfig
 import com.foodApp.managementapp.RetrofitHelper
 import com.foodApp.managementapp.base.BaseRepository
 
-import java.util.concurrent.TimeUnit
 
 class Application : Application() {
     var TAG = this@Application.javaClass.simpleName

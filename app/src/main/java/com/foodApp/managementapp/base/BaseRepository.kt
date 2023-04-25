@@ -3,19 +3,18 @@ package com.foodApp.managementapp.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.foodApp.managementapp.APIservice
-
-import retrofit2.Response
+import com.foodApp.managementapp.models.demoResponse
 
 class BaseRepository  (private  val  apIservice: APIservice) {
 
-//    private val quotesLiveData = MutableLiveData<demoData>()
+    private val demoLiveData = MutableLiveData<demoResponse>()
 //    private val customerAdded =MutableLiveData<LogResponse>()
 //    private val tripdetails =MutableLiveData<tripResponse>()
 //    private val faceEmbeddings =MutableLiveData<faceEmbeddings>()
 //    val driverlogsLogResponse =MutableLiveData<LogResponse>()
 //
-//    val quotes: LiveData<demoData>
-//        get() = quotesLiveData
+    val demoData: LiveData<demoResponse>
+        get() = demoLiveData
 //    val customerAddedLogResponse : LiveData<LogResponse>
 //    get() = customerAdded
 //    val getTripDetails : LiveData<tripResponse>
@@ -36,13 +35,13 @@ class BaseRepository  (private  val  apIservice: APIservice) {
 ////    }
 //
 //
-//    suspend fun addCustomer(customerDetails: customerDetails) {
-//        val result = apIservice.addCustomer(customerDetails)
-//        if (result.body()!=null){
-//            customerAdded.postValue(result.body())
-//        }
-//
-//    }
+    suspend fun getDemodata() {
+        val result = apIservice.demofunc()
+        if (result.body()!=null){
+            demoLiveData.postValue(result.body())
+        }
+
+    }
 //    suspend fun getTripDetails(registration_no: String) {
 //        val result = apIservice.getTripDetails(registration_no)
 //        if (result.body() != null) {

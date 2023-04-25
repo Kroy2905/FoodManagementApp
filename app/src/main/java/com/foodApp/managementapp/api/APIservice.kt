@@ -1,6 +1,7 @@
 package com.foodApp.managementapp
 
 //import com.myelin.ics.ui.models.*
+import com.foodApp.managementapp.models.demoResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -8,9 +9,9 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface APIservice {
-//    @GET("/quotes")    // API to be written here
-//     suspend fun getQuotes(@Query("page") page:Int) : Response <demoData>
-//
+    @GET("/prd")    // API to be written here
+     suspend fun demofunc() : Response <demoResponse>
+
 //
 //
 //    @POST("/addcustomerdetails")    // API to add customer
