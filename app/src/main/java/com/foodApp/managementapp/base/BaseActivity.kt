@@ -49,47 +49,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel>(
                 }
                 throw IllegalArgumentException("Unknown ViewModel class")
             }
-        }).get(viewModelClass)
+        })[viewModelClass]
     }
 }
-
-//
-//abstract class BaseActivity<V : ViewDataBinding, VM : ViewModel>(
-//    private val viewModelClass: Class<VM>,
-//    private val layoutId: Int
-//) : AppCompatActivity() {
-//
-//    protected lateinit var binding: V
-//    protected val viewModel: VM by lazy {
-//        createViewModel()
-//    }
-//    protected val repository: BaseRepository by lazy {
-//        val retrofitService = RetrofitHelper.getInstance().create(APIservice::class.java)
-//         BaseRepository(retrofitService)
-//    }
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        binding = DataBindingUtil.setContentView(this, layoutId)
-//        binding.lifecycleOwner = this
-//
-//        setupViews()
-//    }
-//
-//    abstract fun setupViews()
-//
-//    private fun createViewModel(): VM {
-//        return ViewModelProvider(this, object : ViewModelProvider.Factory {
-//           override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                if (modelClass.isAssignableFrom(viewModelClass)) {
-//                    @Suppress("UNCHECKED_CAST")
-//                    return viewModelClass.getConstructor(BaseRepository::class.java)
-//                        .newInstance(repository) as T
-//                }
-//                throw IllegalArgumentException("Unknown ViewModel class")
-//            }
-//        }).get(viewModelClass)
-//    }
-//}
 

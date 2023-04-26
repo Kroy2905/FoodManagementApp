@@ -17,6 +17,6 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, MainViewModel>(
     }
 
     override fun setupViews() {
-        TODO("Not yet implemented")
+
     }
 }
