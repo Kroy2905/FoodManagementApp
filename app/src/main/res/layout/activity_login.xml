@@ -91,6 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+
             android:background="@drawable/button_bg"
             android:drawableLeft="@drawable/id_img"
             android:drawablePadding="10dp"
@@ -142,6 +143,7 @@
             android:paddingVertical="7dp"
             android:hint="OTP"
             android:textSize="15dp"
+            android:visibility="gone"
             android:inputType="numberPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,21 +154,21 @@
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="40dp"
+
+
             android:background="@drawable/button_bg_no_stroke"
 
-
             android:paddingHorizontal="25dp"
-
-            android:textSize="20dp"
             android:text="verify"
             android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="40dp"
 
-            app:layout_constraintTop_toBottomOf="@+id/mobileEdittext" />
+            app:layout_constraintTop_toBottomOf="@+id/otpEdittext" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
