@@ -30,8 +30,8 @@ class RestaurantHomeScreen : BaseActivity<ActivityRestaurantHomeScreenBinding, R
 
         setSupportActionBar(binding.appBarRestaurantHomeScreen.toolbar)
 
-        binding.appBarRestaurantHomeScreen.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        binding.appBarRestaurantHomeScreen.report.setOnClickListener { view ->
+            Snackbar.make(view, "Report services to be added later", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -41,7 +41,7 @@ class RestaurantHomeScreen : BaseActivity<ActivityRestaurantHomeScreenBinding, R
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home,R.id.nav_orders,R.id.nav_menu
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.foodApp.managementapp.MainActivity
 import com.foodApp.managementapp.R
+import com.foodApp.managementapp.Utilities.Utils.Companion.PARTNER_CODE
+import com.foodApp.managementapp.Utilities.Utils.Companion.RESTAURENT_CODE
 import com.foodApp.managementapp.base.BaseActivity
 import com.foodApp.managementapp.databinding.ActivityLoginBinding
 import com.foodApp.managementapp.databinding.ActivityMainBinding
@@ -28,8 +30,20 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, LoginViewModel>(
         viewModel.navigateToNextActivity.observe(this, Observer { navigateToNextActivity ->
             if (navigateToNextActivity) {
                 // Navigate to the next activity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                if(loginCode.equals(RESTAURENT_CODE)){
+                    val intent = Intent(this, RestaurantHomeScreen::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else if(loginCode.equals(PARTNER_CODE)){
+                    val intent = Intent(this, PartnerHomeScreen::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else{
+                    Toast.makeText(this@LoginActivity,"Invalid Login ID",Toast.LENGTH_SHORT).show()
+                }
+
 
                 // Reset the LiveData value to avoid navigating multiple times
                 viewModel.navigateToNextActivity()
@@ -40,6 +54,7 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, LoginViewModel>(
     var otp = false
     var requiredFields = true
     var edittextList = mutableListOf<EditText>()
+    var loginCode = ""
     override fun setupViews() {
         binding.loginButton.setOnClickListener {
             Log.d("OTPTEXT->","$otp")
@@ -48,6 +63,13 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, LoginViewModel>(
                 edittextList.add(binding.IdEdittext)
                 edittextList.add(binding.mobileEdittext)
                 if(!viewModel.checkEditTextEmpty(edittextList)){
+                    loginCode=binding.IdEdittext.text.toString().substring(0, minOf(binding.IdEdittext.length(), 4))
+                    Log.d("LoginCode->",loginCode)
+                    //  Verification from backend to be done here
+                    /**
+                     * if backend verfies the id use below code
+                     * else show a toast message invalid ID/Mob No.
+                     */
                     binding.otpEdittext.visibility=View.VISIBLE
                     binding.loginButton.text="LOGIN"
                     otp = true

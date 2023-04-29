@@ -39,15 +39,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ManagementApp"
         tools:targetApi="31">
-        <activity android:name=".ui.RestaurantHomeScreen"
-
+        <activity
+            android:name=".ui.PartnerHomeScreen"
+            android:exported="false"
+            android:label="@string/title_activity_partner_home_screen"
+            android:theme="@style/Theme.ManagementApp.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.RestaurantHomeScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
         </activity>
-
         <activity
             android:name=".ui.LoginActivity"
             android:exported="false">
