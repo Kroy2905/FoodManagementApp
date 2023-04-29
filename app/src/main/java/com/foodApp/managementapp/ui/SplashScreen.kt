@@ -19,7 +19,7 @@ MainViewModel::class.java,
 
         Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
             override fun run() {
-                val myIntent = Intent(this@SplashScreen, LoginActivity::class.java)
+                val myIntent = Intent(this@SplashScreen, RestaurantHomeScreen::class.java)
                 this@SplashScreen.startActivity(myIntent)
                 finish()
             }
