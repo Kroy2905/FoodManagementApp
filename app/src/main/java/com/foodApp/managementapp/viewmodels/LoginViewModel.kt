@@ -1,10 +1,16 @@
 package com.foodApp.managementapp.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.foodApp.managementapp.base.BaseRepository
 import com.foodApp.managementapp.base.BaseViewModel
 import com.foodApp.managementapp.interfaces.OTPsignIninterface
+import com.foodApp.managementapp.models.demoResponse
+import com.foodApp.managementapp.models.partnerReqBody
+import com.foodApp.managementapp.models.restaurantReqBody
+import com.foodApp.managementapp.models.statusResponse
 import com.foodApp.managementapp.ui.LoginActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -13,10 +19,12 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 
 class LoginViewModel(private val repository: BaseRepository): BaseViewModel(){
+
 
     // variable for FirebaseAuth class
     private val _navigateToNextActivity = MutableLiveData<Boolean>()
@@ -140,6 +148,28 @@ class LoginViewModel(private val repository: BaseRepository): BaseViewModel(){
         // calling sign in method.
         signInWithCredential(credential)
     }
+
+
+
+    fun verifyRestaurant(restaurantReqBody: restaurantReqBody){
+        viewModelScope.launch {
+            repository.verifyRestaurant(restaurantReqBody)
+
+        }
+    }
+    val  RSNTverification : LiveData<statusResponse>
+        get() = repository.restauarantResponse
+
+
+
+    fun verifyPartner(partnerReqBody: partnerReqBody){
+        viewModelScope.launch {
+            repository.verifyPartner(partnerReqBody)
+
+        }
+    }
+    val  PTNRverification : LiveData<statusResponse>
+    get() = repository.partnerResponse
 
 
 }

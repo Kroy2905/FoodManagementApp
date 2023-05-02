@@ -12,9 +12,9 @@ class Utils {
         val CODE_PERM_CAMERA = 6112
         val REQUEST_ID_MULTIPLE_PERMISSIONS = 2
         //val BASE_URL = "https://quotable.io/"
-        val BASE_URL = "https://k4474mxtk4.execute-api.ap-south-1.amazonaws.com/"
+        val BASE_URL = "https://y8hrstbmr8.execute-api.ap-south-1.amazonaws.com/"
         val ONGOING_NOTIFICATION_ID = 6660
-        val SUCCESS = "200 OK"
+        val SUCCESS = "200"
         val PARTNER_CODE = "PTNR"
         val RESTAURENT_CODE = "RSNT"
         var TRIP_START = false

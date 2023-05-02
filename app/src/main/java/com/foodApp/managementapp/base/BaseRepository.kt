@@ -1,20 +1,31 @@
 package com.foodApp.managementapp.base
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.foodApp.managementapp.APIservice
 import com.foodApp.managementapp.models.demoResponse
+import com.foodApp.managementapp.models.partnerReqBody
+import com.foodApp.managementapp.models.restaurantReqBody
+import com.foodApp.managementapp.models.statusResponse
 
 class BaseRepository  (private  val  apIservice: APIservice) {
 
     private val demoLiveData = MutableLiveData<demoResponse>()
-//    private val customerAdded =MutableLiveData<LogResponse>()
-//    private val tripdetails =MutableLiveData<tripResponse>()
+    private val partnerVerify =MutableLiveData<statusResponse>()
+    private val restaurantverify =MutableLiveData<statusResponse>()
 //    private val faceEmbeddings =MutableLiveData<faceEmbeddings>()
 //    val driverlogsLogResponse =MutableLiveData<LogResponse>()
 //
     val demoData: LiveData<demoResponse>
         get() = demoLiveData
+        // Partner live data
+    val partnerResponse: LiveData<statusResponse>
+        get() = partnerVerify
+
+//    Restaurant Live Data
+    val restauarantResponse: LiveData<statusResponse>
+        get() = restaurantverify
 //    val customerAddedLogResponse : LiveData<LogResponse>
 //    get() = customerAdded
 //    val getTripDetails : LiveData<tripResponse>
@@ -39,6 +50,23 @@ class BaseRepository  (private  val  apIservice: APIservice) {
         val result = apIservice.demofunc()
         if (result.body()!=null){
             demoLiveData.postValue(result.body())
+        }
+
+    }
+
+    suspend fun verifyRestaurant(restaurantReqBody: restaurantReqBody) {
+        val result = apIservice.verifyRestaurant(restaurantReqBody)
+        if (result.body()!=null){
+           restaurantverify.postValue(result.body())
+        }
+
+    }
+
+    suspend fun verifyPartner(partnerReqBody: partnerReqBody) {
+        val result = apIservice.verifyPartner(partnerReqBody)
+        if (result.body()!=null){
+            Log.d("Response->",result.body().toString())
+            partnerVerify.postValue(result.body())
         }
 
     }

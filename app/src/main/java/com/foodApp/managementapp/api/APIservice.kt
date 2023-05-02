@@ -2,6 +2,9 @@ package com.foodApp.managementapp
 
 //import com.myelin.ics.ui.models.*
 import com.foodApp.managementapp.models.demoResponse
+import com.foodApp.managementapp.models.partnerReqBody
+import com.foodApp.managementapp.models.restaurantReqBody
+import com.foodApp.managementapp.models.statusResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,6 +31,10 @@ interface APIservice {
 //                            @Query("DriverID3") DriverID3:String
 //    ) : Response <faceEmbeddings>
 //
-//    @POST("/createevent")    // API to send log details to server
-//    suspend fun  createEvent(@Body logDetails: LogDetails) : Response <LogResponse>
+    @POST("/restaurantverify")    // API to verify restaurant
+    suspend fun  verifyRestaurant(@Body restaurantReqBody: restaurantReqBody) : Response <statusResponse>
+
+
+    @POST("/partnerverify")    // API to verify restaurant
+    suspend fun  verifyPartner(@Body partnerReqBody: partnerReqBody) : Response <statusResponse>
 }
