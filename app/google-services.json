@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "776277689335",
+    "project_id": "grabbersmanager",
+    "storage_bucket": "grabbersmanager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776277689335:android:f1253f64ce3adbc36664f2",
+        "android_client_info": {
+          "package_name": "com.foodApp.managementapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776277689335-0uru3s7a5ee1o6sfvb8kh43p7j53u537.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALF9sypYcD234fuA10IoQzcLYrUJDJy08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776277689335-0uru3s7a5ee1o6sfvb8kh43p7j53u537.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

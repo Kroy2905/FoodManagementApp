@@ -57,7 +57,10 @@ class BaseRepository  (private  val  apIservice: APIservice) {
     suspend fun verifyRestaurant(restaurantReqBody: restaurantReqBody) {
         val result = apIservice.verifyRestaurant(restaurantReqBody)
         if (result.body()!=null){
+            Log.d("Response->",result.body().toString())
            restaurantverify.postValue(result.body())
+        }else{
+            Log.d("Response->",result.body().toString())
         }
 
     }
@@ -67,6 +70,8 @@ class BaseRepository  (private  val  apIservice: APIservice) {
         if (result.body()!=null){
             Log.d("Response->",result.body().toString())
             partnerVerify.postValue(result.body())
+        }else{
+            Log.d("Response->",result.body().toString())
         }
 
     }
