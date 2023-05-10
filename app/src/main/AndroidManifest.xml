@@ -43,7 +43,7 @@
             android:name=".ui.PartnerHomeScreen"
             android:exported="false"
             android:label="@string/title_activity_partner_home_screen"
-            android:theme="@style/Theme.ManagementApp.NoActionBar">
+            android:theme="@style/Theme.ManagementApp">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

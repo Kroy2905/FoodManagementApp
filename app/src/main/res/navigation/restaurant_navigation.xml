@@ -22,6 +22,12 @@
     <fragment
         android:id="@+id/nav_menu"
         android:name="com.foodApp.managementapp.ui.Restaurant.FoodItems.FoodItemsFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_foodmenu"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_additem"
+        android:name="com.foodApp.managementapp.ui.Restaurant.Additems.AddItemFragment"
+        android:label="@string/menu_additem"
+        tools:layout="@layout/fragment_add_item" />
 </navigation>

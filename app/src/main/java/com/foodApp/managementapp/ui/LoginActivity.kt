@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.foodApp.managementapp.MainActivity
 import com.foodApp.managementapp.R
+import com.foodApp.managementapp.Utilities.Permissions
 import com.foodApp.managementapp.Utilities.Utils.Companion.PARTNER_CODE
 import com.foodApp.managementapp.Utilities.Utils.Companion.RESTAURENT_CODE
 import com.foodApp.managementapp.Utilities.Utils.Companion.SUCCESS
@@ -60,13 +61,14 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, LoginViewModel>(
     var edittextList = mutableListOf<EditText>()
     var loginCode = ""
     override fun setupViews() {
+        Permissions().checkAndRequestPermissions(this,this)
         viewModel.PTNRverification.observe(this) {
             Log.d("Response->", it.status)
             if (it.status.equals(SUCCESS)) {
                 binding.otpEdittext.visibility = View.VISIBLE
                 binding.loginButton.text = "LOGIN"
                 otp = true
-                //  viewModel.getOTP(binding.mobileEdittext.text.toString(),this)
+                 viewModel.getOTP(binding.mobileEdittext.text.toString(),this)
             } else {
                 Toast.makeText(
                     this,
@@ -82,7 +84,7 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, LoginViewModel>(
                 binding.otpEdittext.visibility=View.VISIBLE
                 binding.loginButton.text="LOGIN"
                 otp = true
-                //  viewModel.getOTP(binding.mobileEdittext.text.toString(),this)
+                 viewModel.getOTP(binding.mobileEdittext.text.toString(),this)
             }
             else{
                 Toast.makeText(this,"Invalid Restaurant ID/Mob No",Toast.LENGTH_SHORT).show()
@@ -92,56 +94,59 @@ class LoginActivity :  BaseActivity<ActivityLoginBinding, LoginViewModel>(
 
         binding.loginButton.setOnClickListener {
             Log.d("OTPTEXT->","$otp")
+            val intent = Intent(this, RestaurantHomeScreen::class.java)
+            startActivity(intent)
+            finish()
 
-            if (!otp) {
-                edittextList.add(binding.IdEdittext)
-                edittextList.add(binding.mobileEdittext)
-                if(!viewModel.checkEditTextEmpty(edittextList)){
-                    loginCode=binding.IdEdittext.text.toString().substring(0, minOf(binding.IdEdittext.length(), 4))
-                    Log.d("LoginCode->",loginCode)
-                    when (loginCode){
-                        PARTNER_CODE->{
-                            Log.d("LoginCode->","Entered PTNR")
-//                            binding.otpEdittext.visibility=View.VISIBLE
-//                                    binding.loginButton.text="LOGIN"
-//                                    otp = true
-//                                    viewModel.getOTP(binding.mobileEdittext.text.toString(),this)
-
-                            viewModel.verifyPartner(partnerReqBody(binding.IdEdittext.text.toString(),binding.mobileEdittext.text.toString()))
-
-
-
-                        }
-                        RESTAURENT_CODE->{
-                            Log.d("LoginCode->","Entered RSNT")
-
-
-                            viewModel.verifyRestaurant(restaurantReqBody(binding.IdEdittext.text.toString(),binding.mobileEdittext.text.toString()))
-
-
-                        }
-                        else->{
-                            Toast.makeText(this,"Invalid Input",Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    //  Verification from backend to be done here
-                    /**
-                     * if backend verfies the id use below code
-                     * else show a toast message invalid ID/Mob No.
-                     */
-
-                }
-
-
-            }else{
-                edittextList.clear()
-                edittextList.add(binding.otpEdittext)
-                if(!viewModel.checkEditTextEmpty(edittextList)){
-                    Log.d("OTPTEXT->",binding.otpEdittext.text!!.trim().toString())
-                 //  viewModel.verifyCode(binding.otpEdittext.text!!.trim().toString())
-                }
-            }
+//            if (!otp) {
+//                edittextList.add(binding.IdEdittext)
+//                edittextList.add(binding.mobileEdittext)
+//                if(!viewModel.checkEditTextEmpty(edittextList)){
+//                    loginCode=binding.IdEdittext.text.toString().substring(0, minOf(binding.IdEdittext.length(), 4))
+//                    Log.d("LoginCode->",loginCode)
+//                    when (loginCode){
+//                        PARTNER_CODE->{
+//                            Log.d("LoginCode->","Entered PTNR")
+////                            binding.otpEdittext.visibility=View.VISIBLE
+////                                    binding.loginButton.text="LOGIN"
+////                                    otp = true
+////                                    viewModel.getOTP(binding.mobileEdittext.text.toString(),this)
+//
+//                            viewModel.verifyPartner(partnerReqBody(binding.IdEdittext.text.toString(),binding.mobileEdittext.text.toString()))
+//
+//
+//
+//                        }
+//                        RESTAURENT_CODE->{
+//                            Log.d("LoginCode->","Entered RSNT")
+//
+//
+//                            viewModel.verifyRestaurant(restaurantReqBody(binding.IdEdittext.text.toString(),binding.mobileEdittext.text.toString()))
+//
+//
+//                        }
+//                        else->{
+//                            Toast.makeText(this,"Invalid Input",Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//
+//                    //  Verification from backend to be done here
+//                    /**
+//                     * if backend verfies the id use below code
+//                     * else show a toast message invalid ID/Mob No.
+//                     */
+//
+//                }
+//
+//
+//            }else{
+//                edittextList.clear()
+//                edittextList.add(binding.otpEdittext)
+//                if(!viewModel.checkEditTextEmpty(edittextList)){
+//                    Log.d("OTPTEXT->",binding.otpEdittext.text!!.trim().toString())
+//                 viewModel.verifyCode(binding.otpEdittext.text!!.trim().toString())
+//                }
+//            }
         }
     }
 

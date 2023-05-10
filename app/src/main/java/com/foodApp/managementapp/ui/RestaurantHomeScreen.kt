@@ -2,6 +2,7 @@ package com.foodApp.managementapp.ui
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -28,7 +29,7 @@ class RestaurantHomeScreen : BaseActivity<ActivityRestaurantHomeScreenBinding, R
 
 
 
-        setSupportActionBar(binding.appBarRestaurantHomeScreen.toolbar)
+     // setSupportActionBar(binding.appBarRestaurantHomeScreen.toolbar)
 
         binding.appBarRestaurantHomeScreen.report.setOnClickListener { view ->
             Snackbar.make(view, "Report services to be added later", Snackbar.LENGTH_LONG)
@@ -41,10 +42,10 @@ class RestaurantHomeScreen : BaseActivity<ActivityRestaurantHomeScreenBinding, R
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home,R.id.nav_orders,R.id.nav_menu
+                R.id.nav_home,R.id.nav_orders,R.id.nav_menu,R.id.nav_additem
             ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+       // setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
@@ -59,7 +60,16 @@ class RestaurantHomeScreen : BaseActivity<ActivityRestaurantHomeScreenBinding, R
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+           // handle on options item selected here
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
     override fun setupViews() {
+
 
     }
 }

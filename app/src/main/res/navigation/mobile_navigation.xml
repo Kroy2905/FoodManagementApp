@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.foodApp.managementapp.ui.Partner.Orders.OrderFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_foodmenu"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

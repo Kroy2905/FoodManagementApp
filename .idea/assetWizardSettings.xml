@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$PROJECT_DIR$/../Android/Sdk/icons/material/materialicons/restaurant_menu/baseline_restaurant_menu_24.xml" />
+                                      <entry key="url" value="file:$PROJECT_DIR$/../Android/Sdk/icons/material/materialicons/file_upload/baseline_file_upload_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="menu_item_img" />
+                            <entry key="outputName" value="file_upload_img" />
                           </map>
                         </option>
                       </PersistentState>
