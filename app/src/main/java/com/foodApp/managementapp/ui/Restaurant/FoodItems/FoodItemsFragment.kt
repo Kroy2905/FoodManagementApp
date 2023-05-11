@@ -7,37 +7,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.foodApp.managementapp.databinding.FragmentSlideshowBinding
+import com.foodApp.managementapp.base.BaseFragment
+import com.foodApp.managementapp.databinding.FragmentAddItemBinding
+import com.foodApp.managementapp.databinding.FragmentFooditemsBinding
+
+import com.foodApp.managementapp.ui.Restaurant.Additems.AddItemViewModel
 
 
-class FoodItemsFragment : Fragment() {
+class FoodItemsFragment : BaseFragment<FragmentFooditemsBinding, AddItemViewModel>(
+    AddItemViewModel::class.java,
+    FragmentFooditemsBinding::inflate
+) {
 
-    private var _binding: FragmentSlideshowBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val foodItemsViewModel =
-            ViewModelProvider(this).get(FoodItemsViewModel::class.java)
+    override fun setupViews() {
 
-        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textSlideshow
-        foodItemsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

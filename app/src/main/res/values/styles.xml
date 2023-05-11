@@ -9,5 +9,12 @@
 
     </style>
 
+    <style name="DropDowntInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorAccent">#130606</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="boxStrokeColor">#120A0A</item>
+
+    </style>
+
 
 </resources>

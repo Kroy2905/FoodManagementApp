@@ -1,43 +1,36 @@
 package com.foodApp.managementapp.ui.Restaurant.Orders
+import com.bumptech.glide.Glide
+import com.foodApp.managementapp.base.BaseFragment
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.foodApp.managementapp.databinding.FragmentGalleryBinding
+import com.foodApp.managementapp.databinding.FragmentOrderBinding
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 
 
-class OrderFragment : Fragment() {
+class OrderFragment : BaseFragment<FragmentOrderBinding, OrderViewModel>(
+    OrderViewModel::class.java,
+    FragmentOrderBinding::inflate
+) {
 
-    private var _binding: FragmentGalleryBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun setupViews() {
+//        val storage = FirebaseStorage.getInstance()
+//        val storageRef = storage.reference.child("fooditems/foodItem1")
+//        Glide.with(this /* context */)
+//            .load(storageRef)
+//            .into(binding.textGallery)
+        // we will get the default FirebaseDatabase instance
+        val storageRef = Firebase.storage.reference
+        Glide.with(this /* context */)
+            //.load(storageRef.child("/fooditems/foodItem1.jpeg"))
+            .load("https://firebasestorage.googleapis.com/v0/b/grabbersmanager.appspot.com/o/fooditems%2FfoodItem1?alt=media&token=216b7a19-76ba-440c-9548-2de17c1784df")
+            .into(binding.textGallery)
+        
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val orderViewModel =
-            ViewModelProvider(this).get(OrderViewModel::class.java)
 
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textGallery
-        orderViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }
+

@@ -8,6 +8,12 @@ import com.foodApp.managementapp.APIservice
 import com.foodApp.managementapp.BuildConfig
 import com.foodApp.managementapp.RetrofitHelper
 import com.foodApp.managementapp.base.BaseRepository
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
 
 
 class Application : Application() {
@@ -18,9 +24,18 @@ class Application : Application() {
     override fun onCreate() {
         super.onCreate()
         initRepo()
+        initFirebase()
         versionCode = BuildConfig.VERSION_CODE
         versionName = BuildConfig.VERSION_NAME
         Log.d(TAG, "Version : $versionName")
+    }
+
+    private fun initFirebase() {
+        FirebaseApp.initializeApp(/*context=*/applicationContext)
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(
+            PlayIntegrityAppCheckProviderFactory.getInstance()
+        )
     }
 
     private fun initRepo() {

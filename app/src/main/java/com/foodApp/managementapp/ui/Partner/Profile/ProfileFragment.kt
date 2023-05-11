@@ -7,35 +7,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.foodApp.managementapp.databinding.FragmentGalleryBinding
-class ProfileFragment : Fragment() {
+import com.foodApp.managementapp.base.BaseFragment
+import com.foodApp.managementapp.databinding.FragmentFooditemsBinding
+import com.foodApp.managementapp.ui.Restaurant.Additems.AddItemViewModel
 
-    private var _binding: FragmentGalleryBinding? = null
+class ProfileFragment : BaseFragment<FragmentFooditemsBinding, AddItemViewModel>(
+    AddItemViewModel::class.java,
+    FragmentFooditemsBinding::inflate
+) {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun setupViews() {
 
-        val textView: TextView = binding.textGallery
-        profileViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

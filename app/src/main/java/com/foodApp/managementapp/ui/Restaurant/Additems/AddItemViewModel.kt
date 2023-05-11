@@ -194,9 +194,29 @@ class AddItemViewModel  (private val repository: BaseRepository):BaseViewModel()
 
         // Upload the image file to Firebase Storage
         imageRef.putFile(imageUri!!)
-            .addOnSuccessListener {
-                Log.d("Check->",it.storage.downloadUrl.toString())
+            .addOnCompleteListener{task->
+                if (task.isSuccessful) {
+                    // Get the download URL
+                    val downloadUrl = task.result?.metadata?.reference?.downloadUrl
+                    // Do something with the download URL
+                    Log.d("Check->", "Download URL: $downloadUrl")
+                } else {
+                    // Handle the error
+                    Log.e("Check->", "Upload failed: ${task.exception}")
+                }
 
+            }
+            .addOnSuccessListener {
+                imageRef.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        val httpsUrl = uri.toString()
+                        // Do something with the HTTPS URL
+                        Log.d("Check->", "HTTPS URL: $httpsUrl")
+                    }
+                    .addOnFailureListener { exception ->
+                        // Handle the error
+                        Log.e("Check->", "Failed to get HTTPS URL: ${exception.message}")
+                    }
                 //gs://grabbersmanager.appspot.com/images
 
                 // Image upload successful

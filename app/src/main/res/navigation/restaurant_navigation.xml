@@ -17,13 +17,13 @@
         android:id="@+id/nav_orders"
         android:name="com.foodApp.managementapp.ui.Restaurant.Orders.OrderFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_order" />
 
     <fragment
         android:id="@+id/nav_menu"
         android:name="com.foodApp.managementapp.ui.Restaurant.FoodItems.FoodItemsFragment"
         android:label="@string/menu_foodmenu"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_fooditems" />
 
     <fragment
         android:id="@+id/nav_additem"

@@ -13,10 +13,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.foodApp.managementapp.R
+import com.foodApp.managementapp.Utilities.Utils.Companion.CATEGORY_LIST
 import com.foodApp.managementapp.base.BaseFragment
 import com.foodApp.managementapp.databinding.FragmentAddItemBinding
 import com.google.firebase.ktx.Firebase
@@ -31,19 +34,21 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
    FragmentAddItemBinding::inflate
 ) {
     private var imageURI: Uri? = null
-    private val getImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-
-        uri?.let { viewModel.setImageUri(it) }
-        imageURI = uri!!
-
-
-    }
     var ct=0;
+    private  lateinit var msgIdAdapter: ArrayAdapter<String>
+    private var food_category:String? = null
 
     override fun setupViews() {
+
+        msgIdAdapter = ArrayAdapter<String>(requireContext(),R.layout.msg_listitem,CATEGORY_LIST)
+        binding.dropdownTextview.setAdapter(msgIdAdapter)
+        binding.dropdownTextview.setOnItemClickListener { parent, view, position, id ->
+            food_category = parent.getItemAtPosition(position).toString()
+            Toast.makeText(requireContext()," $food_category selected!!", Toast.LENGTH_SHORT).show()
+        }
+
         binding.uploadImagebn.setOnClickListener {
             //  getImage.launch("image/*")
-
             // Create an intent to open the gallery
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"

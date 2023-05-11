@@ -9,6 +9,22 @@ class Utils {
 
 
     companion object{
+         val PREFS_NAME = "Restaurant"
+         val isLoggedIn = "is_logged_in"
+         val UserId = "userId"
+
+        var CATEGORY_LIST: MutableList<String> = mutableListOf<String>(
+            "Pizza",
+            "Biryani",
+            "Burger",
+            "Thali",
+            "Chinese",
+            "Chicken",
+            "Mutton",
+            "Fish",
+            "Egg",
+            "Rice"
+        )
         val CODE_PERM_CAMERA = 6112
         val REQUEST_ID_MULTIPLE_PERMISSIONS = 2
         //val BASE_URL = "https://quotable.io/"
