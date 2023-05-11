@@ -20,6 +20,7 @@ import com.foodApp.managementapp.R
 import com.foodApp.managementapp.base.BaseFragment
 import com.foodApp.managementapp.databinding.FragmentAddItemBinding
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.lang.reflect.Array.get
@@ -28,92 +29,51 @@ import java.util.*
 class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
     AddItemViewModel::class.java,
    FragmentAddItemBinding::inflate
-){
-     private var imagepath:String? = null
-     private var imageURI:Uri? = null
+) {
+    private var imageURI: Uri? = null
     private val getImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
 
-            uri?.let { viewModel.setImageUri(it) }
-        imageURI = uri
-            //imagepath=viewModel.getPathFromUri(requireContext(),uri!!)
+        uri?.let { viewModel.setImageUri(it) }
+        imageURI = uri!!
 
 
     }
+    var ct=0;
 
     override fun setupViews() {
-            binding.uploadImagebn.setOnClickListener {
-               getImage.launch("image/*")
-              //  pickImage()
-            }
+        binding.uploadImagebn.setOnClickListener {
+            //  getImage.launch("image/*")
+
+            // Create an intent to open the gallery
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            startActivityForResult(
+                Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_REQUEST
+            )
+
+
+        }
         binding.addItembtn.setOnClickListener {
-                if(imageURI!=null){
-                    viewModel.uploadImage(imageURI!!,requireContext())
-                }
+            ct++
+            if (imageURI != null) {
+                viewModel.uploadImage(imageURI!!,"foodItem${ct.toString()}")
+            }
 
         }
 
-        viewModel.imageUri.observe(this) { uri ->
 
-            Log.d("URI IMAGE->",uri.toString())
-            binding.foodimg.setImageURI(uri)
-        }
-
-
-
-        viewModel.imageURL.observe(this) { url->
-
-            Log.d("URI IMAGE->","URL of image $url")
-
-        }
     }
 
-    val   REQUEST_CODE_PICK_IMAGE = 100
-
-
-    private fun pickImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
-    }
-
+    // Handle the result of the image selection
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICK_IMAGE && data != null) {
-            val selectedImageUri: Uri = data.data!!
-            binding.foodimg.setImageURI(selectedImageUri)
 
-            val filePath = getPathFromUri(selectedImageUri)
-            uploadImageToFirestore(filePath)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
+            val imageUri = data.data
+            binding.foodimg.setImageURI(imageUri)
+            imageURI = imageUri!!
         }
     }
-
-    private fun getPathFromUri(uri: Uri): String {
-        var filePath = ""
-        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
-        cursor?.let {
-            it.moveToFirst()
-            filePath = it.getString(it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
-            it.close()
-        }
-        return filePath
-    }
-
-    private fun uploadImageToFirestore(filePath: String) {
-        val storageRef = Firebase.storage.reference
-        val imageRef = storageRef.child("images/${UUID.randomUUID()}.jpg")
-        val uploadTask = imageRef.putFile(Uri.fromFile(File(filePath)))
-
-        uploadTask.addOnSuccessListener {
-            imageRef.downloadUrl.addOnSuccessListener { uri ->
-                val imageUrl = uri.toString()
-                Log.d(TAG, "Image URL: $imageUrl")
-            }
-        }.addOnFailureListener {
-            Log.e(TAG, "Error uploading image", it)
-        }
-    }
-
-
-
-
-
 }

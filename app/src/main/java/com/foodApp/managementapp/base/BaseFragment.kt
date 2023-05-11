@@ -17,6 +17,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     private val layoutInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 ) : Fragment() {
 
+    val PICK_IMAGE_REQUEST = 22
     protected lateinit var binding: VB
     protected val viewModel: VM by lazy {
         createViewModel()
