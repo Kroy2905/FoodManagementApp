@@ -18,10 +18,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.foodApp.managementapp.R
 import com.foodApp.managementapp.Utilities.Utils.Companion.CATEGORY_LIST
+import com.foodApp.managementapp.Utilities.Utils.Companion.SUCCESS
 import com.foodApp.managementapp.base.BaseFragment
 import com.foodApp.managementapp.databinding.FragmentAddItemBinding
+import com.foodApp.managementapp.models.addFoodBody
+import com.foodApp.managementapp.models.addFoodReqBody
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -39,6 +43,33 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
     private var food_category:String? = null
 
     override fun setupViews() {
+
+        viewModel.addFoodItem.observe(this){
+            if(it.status == SUCCESS){
+                Log.d("hitornot->","yes!!")
+              //  findNavController().popBackStack()
+                findNavController().navigate(R.id.action_nav_additem_to_nav_home)
+
+
+               // requireActivity().supportFragmentManager.popBackStack()
+            }
+
+        }
+
+        viewModel.imageURL.observe(this) {
+            addFoodBody.getInstance().foodPrice=Integer.parseInt(binding.etPrize.text.toString())
+            addFoodBody.getInstance().foodDescription=binding.etDescription.text.toString()
+            addFoodBody.getInstance().foodTitle=binding.etName.text.toString()
+            //pushing to API
+            viewModel.addFoodItem(addFoodReqBody(addFoodBody.getInstance().foodDescription,
+            addFoodBody.getInstance().foodImgUrl,
+                addFoodBody.getInstance().foodPrice,
+                addFoodBody.getInstance().foodTitle,
+                addFoodBody.getInstance().restaurantID,
+
+            ))
+
+        }
 
         msgIdAdapter = ArrayAdapter<String>(requireContext(),R.layout.msg_listitem,CATEGORY_LIST)
         binding.dropdownTextview.setAdapter(msgIdAdapter)
@@ -69,6 +100,7 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
 
 
     }
+
 
     // Handle the result of the image selection
     @Deprecated("Deprecated in Java")

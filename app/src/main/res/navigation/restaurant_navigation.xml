@@ -17,7 +17,11 @@
         android:id="@+id/nav_orders"
         android:name="com.foodApp.managementapp.ui.Restaurant.Orders.OrderFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_order" />
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_nav_orders_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_menu"
@@ -29,5 +33,9 @@
         android:id="@+id/nav_additem"
         android:name="com.foodApp.managementapp.ui.Restaurant.Additems.AddItemFragment"
         android:label="@string/menu_additem"
-        tools:layout="@layout/fragment_add_item" />
+        tools:layout="@layout/fragment_add_item" >
+        <action
+            android:id="@+id/action_nav_additem_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

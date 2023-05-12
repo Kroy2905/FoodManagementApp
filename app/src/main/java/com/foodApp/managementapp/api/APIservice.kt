@@ -1,10 +1,7 @@
 package com.foodApp.managementapp
 
 //import com.myelin.ics.ui.models.*
-import com.foodApp.managementapp.models.demoResponse
-import com.foodApp.managementapp.models.partnerReqBody
-import com.foodApp.managementapp.models.restaurantReqBody
-import com.foodApp.managementapp.models.statusResponse
+import com.foodApp.managementapp.models.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -37,4 +34,7 @@ interface APIservice {
 
     @POST("/partnerverify")    // API to verify restaurant
     suspend fun  verifyPartner(@Body partnerReqBody: partnerReqBody) : Response <statusResponse>
+
+    @POST("/addfood")    // API to verify restaurant
+    suspend fun  addfoodItem(@Body addFoodReqBody: addFoodReqBody) : Response <statusResponse>
 }

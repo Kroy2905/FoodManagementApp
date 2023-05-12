@@ -17,7 +17,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        //testInstrumentationRunnerArgument "firebaseAppCheckDebugSecret", System.getenv("APP_CHECK_DEBUG_TOKEN_FROM_CI") ?: ''
     }
 
     buildTypes {
@@ -47,7 +46,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth:22.0.0'
-    implementation 'com.google.firebase:firebase-appcheck-debug:17.0.0'
+    implementation 'com.google.firebase:firebase-appcheck-debug:16.1.2'
     androidTestImplementation 'com.google.firebase:firebase-appcheck-debug-testing:17.0.0'
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
@@ -117,6 +116,7 @@ dependencies {
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.android.play:integrity:1.1.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
 }

@@ -4,16 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.foodApp.managementapp.APIservice
-import com.foodApp.managementapp.models.demoResponse
-import com.foodApp.managementapp.models.partnerReqBody
-import com.foodApp.managementapp.models.restaurantReqBody
-import com.foodApp.managementapp.models.statusResponse
+import com.foodApp.managementapp.models.*
 
 class BaseRepository  (private  val  apIservice: APIservice) {
 
     private val demoLiveData = MutableLiveData<demoResponse>()
     private val partnerVerify =MutableLiveData<statusResponse>()
     private val restaurantverify =MutableLiveData<statusResponse>()
+    private val addfooditem =MutableLiveData<statusResponse>()
 //    private val faceEmbeddings =MutableLiveData<faceEmbeddings>()
 //    val driverlogsLogResponse =MutableLiveData<LogResponse>()
 //
@@ -26,6 +24,8 @@ class BaseRepository  (private  val  apIservice: APIservice) {
 //    Restaurant Live Data
     val restauarantResponse: LiveData<statusResponse>
         get() = restaurantverify
+    val _addfoodItem: LiveData<statusResponse>
+        get() = addfooditem
 //    val customerAddedLogResponse : LiveData<LogResponse>
 //    get() = customerAdded
 //    val getTripDetails : LiveData<tripResponse>
@@ -70,6 +70,17 @@ class BaseRepository  (private  val  apIservice: APIservice) {
         if (result.body()!=null){
             Log.d("Response->",result.body().toString())
             partnerVerify.postValue(result.body())
+        }else{
+            Log.d("Response->",result.body().toString())
+        }
+
+    }
+
+    suspend fun addFooditem(addFoodReqBody: addFoodReqBody) {
+        val result = apIservice.addfoodItem(addFoodReqBody)
+        if (result.body()!=null){
+            Log.d("Response->",result.body().toString())
+            addfooditem.postValue(result.body())
         }else{
             Log.d("Response->",result.body().toString())
         }

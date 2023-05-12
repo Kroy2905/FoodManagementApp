@@ -3,15 +3,12 @@ package com.myelin.ics.base
 import android.app.Application
 import android.content.Intent
 import android.util.Log
-
 import com.foodApp.managementapp.APIservice
 import com.foodApp.managementapp.BuildConfig
 import com.foodApp.managementapp.RetrofitHelper
 import com.foodApp.managementapp.base.BaseRepository
-import com.google.firebase.FirebaseApp
 import com.google.firebase.appcheck.FirebaseAppCheck
 import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 
@@ -31,10 +28,10 @@ class Application : Application() {
     }
 
     private fun initFirebase() {
-        FirebaseApp.initializeApp(/*context=*/applicationContext)
+        Firebase.initialize(applicationContext)
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(
-            PlayIntegrityAppCheckProviderFactory.getInstance()
+            DebugAppCheckProviderFactory.getInstance(),
         )
     }
 
