@@ -51,7 +51,7 @@ class AddItemViewModel  (private val repository: BaseRepository):BaseViewModel()
                 imageRef.downloadUrl
                     .addOnSuccessListener { uri ->
                         val httpsUrl = uri.toString()
-                       // addFoodBody.getInstance().foodImgUrl=httpsUrl
+                        addFoodBody.getInstance().foodImgUrl=httpsUrl
                         _imageURL.postValue(httpsUrl)
                         // Do something with the HTTPS URL
                         Log.d("Check->", "HTTPS URL: $httpsUrl")

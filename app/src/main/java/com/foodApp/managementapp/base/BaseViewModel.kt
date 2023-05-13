@@ -2,6 +2,7 @@ package com.foodApp.managementapp.base
 
 import android.content.Context
 import android.widget.EditText
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.foodApp.managementapp.Utilities.Utils
 import com.foodApp.managementapp.Utilities.Utils.Companion.PREFS_NAME
@@ -9,6 +10,17 @@ import com.foodApp.managementapp.Utilities.Utils.Companion.UserId
 import com.foodApp.managementapp.Utilities.Utils.Companion.isLoggedIn
 
 abstract class BaseViewModel : ViewModel() {
+
+
+    val progressBarVisible = MutableLiveData<Boolean>()
+
+    fun showProgressBar() {
+        progressBarVisible.value = true
+    }
+
+    fun hideProgressBar() {
+        progressBarVisible.value = false
+    }
   var requiredFieldsEmpty = false
     fun checkEditTextEmpty(editTexts: List<EditText>):Boolean {
         requiredFieldsEmpty=false

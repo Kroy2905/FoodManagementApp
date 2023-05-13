@@ -4,6 +4,7 @@ data class addFoodReqBody(
     val foodDescription: String,
     val foodImgUrl: String,
     val foodPrice: Int,
+    val foodCategory:String,
     val foodTitle: String,
     val restaurantID: String
 )

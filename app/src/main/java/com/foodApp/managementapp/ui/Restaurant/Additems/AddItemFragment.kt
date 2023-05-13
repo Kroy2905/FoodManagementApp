@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
@@ -41,17 +42,21 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
     var ct=0;
     private  lateinit var msgIdAdapter: ArrayAdapter<String>
     private var food_category:String? = null
+    var edittextList = mutableListOf<EditText>()
 
     override fun setupViews() {
 
         viewModel.addFoodItem.observe(this){
             if(it.status == SUCCESS){
                 Log.d("hitornot->","yes!!")
+                Toast.makeText(requireContext(),"Item Added!",Toast.LENGTH_SHORT).show()
               //  findNavController().popBackStack()
                 findNavController().navigate(R.id.action_nav_additem_to_nav_home)
 
 
                // requireActivity().supportFragmentManager.popBackStack()
+            }else{
+                Toast.makeText(requireContext(),"Item couldn't be added.Please try again!",Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -60,12 +65,14 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
             addFoodBody.getInstance().foodPrice=Integer.parseInt(binding.etPrize.text.toString())
             addFoodBody.getInstance().foodDescription=binding.etDescription.text.toString()
             addFoodBody.getInstance().foodTitle=binding.etName.text.toString()
+
             //pushing to API
-            viewModel.addFoodItem(addFoodReqBody(addFoodBody.getInstance().foodDescription,
-            addFoodBody.getInstance().foodImgUrl,
-                addFoodBody.getInstance().foodPrice,
-                addFoodBody.getInstance().foodTitle,
-                addFoodBody.getInstance().restaurantID,
+            viewModel.addFoodItem(addFoodReqBody(foodDescription = addFoodBody.getInstance().foodDescription,
+             foodImgUrl= addFoodBody.getInstance().foodImgUrl,
+                foodPrice = addFoodBody.getInstance().foodPrice,
+                foodCategory=addFoodBody.getInstance().foodCategory,
+                foodTitle = addFoodBody.getInstance().foodTitle,
+                restaurantID = addFoodBody.getInstance().restaurantID,
 
             ))
 
@@ -75,6 +82,7 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
         binding.dropdownTextview.setAdapter(msgIdAdapter)
         binding.dropdownTextview.setOnItemClickListener { parent, view, position, id ->
             food_category = parent.getItemAtPosition(position).toString()
+            addFoodBody.getInstance().foodCategory=food_category!!
             Toast.makeText(requireContext()," $food_category selected!!", Toast.LENGTH_SHORT).show()
         }
 
@@ -91,10 +99,23 @@ class AddItemFragment : BaseFragment<FragmentAddItemBinding, AddItemViewModel>(
 
         }
         binding.addItembtn.setOnClickListener {
+            edittextList.add(binding.etPrize)
+            edittextList.add(binding.etName)
             ct++
-            if (imageURI != null) {
-                viewModel.uploadImage(imageURI!!,"foodItem${ct.toString()}")
+            if(!viewModel.checkEditTextEmpty(edittextList)){ // if title and price is present
+                if(food_category!=null){  // if food category selected
+                    if (imageURI != null) {  // if timage uploaded properly
+                        val filename = UUID.randomUUID()
+                        viewModel.uploadImage(imageURI!!, filename = filename.toString())
+                        imageURI=null
+                    }else{
+                        Toast.makeText(requireContext(),"Select a picture", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    Toast.makeText(requireContext(),"Select a category", Toast.LENGTH_SHORT).show()
+                }
             }
+
 
         }
 

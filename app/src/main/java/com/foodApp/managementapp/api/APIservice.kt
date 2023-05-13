@@ -37,4 +37,9 @@ interface APIservice {
 
     @POST("/addfood")    // API to verify restaurant
     suspend fun  addfoodItem(@Body addFoodReqBody: addFoodReqBody) : Response <statusResponse>
+
+    // GET trip details
+    @GET("/getfoods")    // API to be written here
+    suspend fun getFood(@Query("restaurantID") restaurantID:String) : Response <fooditemResponse>
+
 }

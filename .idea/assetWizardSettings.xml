@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$PROJECT_DIR$/../Android/Sdk/icons/material/materialicons/file_upload/baseline_file_upload_24.xml" />
+                                      <entry key="url" value="file:$PROJECT_DIR$/../Android/Sdk/icons/material/materialicons/star_border_purple500/baseline_star_border_purple500_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="file_upload_img" />
+                            <entry key="outputName" value="rating_img" />
                           </map>
                         </option>
                       </PersistentState>

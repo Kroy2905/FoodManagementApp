@@ -12,6 +12,7 @@ class BaseRepository  (private  val  apIservice: APIservice) {
     private val partnerVerify =MutableLiveData<statusResponse>()
     private val restaurantverify =MutableLiveData<statusResponse>()
     private val addfooditem =MutableLiveData<statusResponse>()
+    private val getfooditem =MutableLiveData<fooditemResponse>()
 //    private val faceEmbeddings =MutableLiveData<faceEmbeddings>()
 //    val driverlogsLogResponse =MutableLiveData<LogResponse>()
 //
@@ -26,6 +27,10 @@ class BaseRepository  (private  val  apIservice: APIservice) {
         get() = restaurantverify
     val _addfoodItem: LiveData<statusResponse>
         get() = addfooditem
+
+    val _getfooditem: LiveData<fooditemResponse>
+        get() = getfooditem
+
 //    val customerAddedLogResponse : LiveData<LogResponse>
 //    get() = customerAdded
 //    val getTripDetails : LiveData<tripResponse>
@@ -81,6 +86,17 @@ class BaseRepository  (private  val  apIservice: APIservice) {
         if (result.body()!=null){
             Log.d("Response->",result.body().toString())
             addfooditem.postValue(result.body())
+        }else{
+            Log.d("Response->",result.body().toString())
+        }
+
+    }
+
+    suspend fun getFooditems(restaurantId:String) {
+        val result = apIservice.getFood(restaurantID = restaurantId)
+        if (result.body()!=null){
+            Log.d("Response->",result.body().toString())
+            getfooditem.postValue(result.body())
         }else{
             Log.d("Response->",result.body().toString())
         }

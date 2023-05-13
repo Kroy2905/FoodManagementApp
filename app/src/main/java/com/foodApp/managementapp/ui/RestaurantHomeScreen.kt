@@ -26,6 +26,7 @@ class RestaurantHomeScreen : BaseActivity<ActivityRestaurantHomeScreenBinding, R
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.showProgressBar()
 
 
 
